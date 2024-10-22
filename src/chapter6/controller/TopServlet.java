@@ -48,7 +48,9 @@ public class TopServlet extends HttpServlet {
           isShowMessageForm = true;
       }
 
-      List<UserMessage> messages = new MessageService().select();
+      //JSPからuserIdを受け取り、MessageServiceに引数として渡す
+      String userId = request.getParameter("user_id");
+      List<UserMessage> messages = new MessageService().select(userId);
 
       request.setAttribute("messages", messages);
       request.setAttribute("isShowMessageForm", isShowMessageForm);

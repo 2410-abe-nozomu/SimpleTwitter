@@ -95,7 +95,7 @@ public class SignUpServlet extends HttpServlet {
 		String account = user.getAccount();
 		String password = user.getPassword();
 		String email = user.getEmail();
-		User accountName = new UserService().select(account);
+		User duplicationAccount = new UserService().select(account);
 
 		if (!StringUtils.isEmpty(name) && (20 < name.length())) {
 			errorMessages.add("名前は20文字以下で入力してください");
@@ -115,7 +115,7 @@ public class SignUpServlet extends HttpServlet {
 			errorMessages.add("メールアドレスは50文字以下で入力してください");
 		}
 
-		if (accountName != null) {
+		if (duplicationAccount != null) {
 			errorMessages.add("すでに存在するアカウントです");
 		}
 

@@ -30,8 +30,10 @@ public class UserService {
 	public User select(String accountOrEmail, String password) {
 
 		//不明
-		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
-				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
 		//コネクションの初期化
 		Connection connection = null;
@@ -48,7 +50,7 @@ public class UserService {
 			//UserDaoの戻り値をLoginServletに返す
 			return user;
 
-		//エラー処理
+			//エラー処理
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {
@@ -140,7 +142,7 @@ public class UserService {
 		Connection connection = null;
 		try {
 			// パスワードの入力があったときは、パスワード暗号化
-			if(!StringUtils.isBlank(user.getPassword())) {
+			if (!StringUtils.isBlank(user.getPassword())) {
 				String encPassword = CipherUtil.encrypt(user.getPassword());
 				user.setPassword(encPassword);
 			}
@@ -156,6 +158,26 @@ public class UserService {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {
 			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public User select(String account) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			User user = new UserDao().select(connection, account);
+			commit(connection);
+
+			return user;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
 			throw e;
 		} finally {
 			close(connection);

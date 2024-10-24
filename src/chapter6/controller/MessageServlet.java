@@ -48,6 +48,7 @@ public class MessageServlet extends HttpServlet {
 		List<String> errorMessages = new ArrayList<String>();
 
 		String text = request.getParameter("text");
+		
 		if (!isValid(text, errorMessages)) {
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");

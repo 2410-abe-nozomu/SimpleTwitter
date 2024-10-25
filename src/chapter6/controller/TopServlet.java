@@ -41,8 +41,11 @@ public class TopServlet extends HttpServlet {
 		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
 
+		//isShowMessageFormにfalseをセット
 		boolean isShowMessageForm = false;
+		//top.jspからloginUser（ログインしているユーザーのデータ）を取得
 		User user = (User) request.getSession().getAttribute("loginUser");
+		//loginUserがnull（ログインしていない）ときはisShowMessageFormにtureをセット
 		if (user != null) {
 			isShowMessageForm = true;
 		}
@@ -51,6 +54,7 @@ public class TopServlet extends HttpServlet {
 		String userId = request.getParameter("user_id");
 		List<UserMessage> messages = new MessageService().select(userId);
 
+		//top.jspに出力
 		request.setAttribute("messages", messages);
 		request.setAttribute("isShowMessageForm", isShowMessageForm);
 		request.getRequestDispatcher("/top.jsp").forward(request, response);

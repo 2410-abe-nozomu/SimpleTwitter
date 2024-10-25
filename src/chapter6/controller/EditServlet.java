@@ -50,11 +50,11 @@ public class EditServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
 
-		//JSPから更新するつぶやきのidを取得
+		//top.jspから更新するつぶやきのidを取得
 		String editMessageId = request.getParameter("editMessageId");
 
 		//つぶやきのidが数字以外だったときトップ画面に遷移し、エラーメッセージを表示
-		if (editMessageId == null) {
+		if (StringUtils.isBlank(editMessageId)) {
 			errorMessages.add("不正なパラメータが入力されました");
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
@@ -62,17 +62,18 @@ public class EditServlet extends HttpServlet {
 		}
 
 		//つぶやきのidが数字以外だったときトップ画面に遷移し、エラーメッセージを表示
-		if (!editMessageId.matches("^[0-9]*$")) {
+		if (!editMessageId.matches("^[0-9]+$")) {
 			errorMessages.add("不正なパラメータが入力されました");
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
 			return;
 		}
 
-		List<Message> editMessage = new MessageService().editSelect(editMessageId);
+		//editMessageIdをint型にして引数とし、MessageServiceのeditSelectを呼び出す
+		List<Message> message = new MessageService().select(Integer.parseInt(editMessageId));
 
-		//つぶやきのidが数字以外だったときトップ画面に遷移し、エラーメッセージを表示
-		if (editMessage == null || editMessage.size() == 0) {
+		//つぶやきのidが存在しないときトップ画面に遷移し、エラーメッセージを表示
+		if (message == null) {
 			errorMessages.add("不正なパラメータが入力されました");
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
@@ -80,7 +81,7 @@ public class EditServlet extends HttpServlet {
 		}
 
 		//出力するデータと出力するJSPを指定して、フォワード
-		request.setAttribute("message", editMessage.get(0));
+		request.setAttribute("message", message);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
 		dispatcher.forward(request, response);
 
@@ -90,8 +91,10 @@ public class EditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
-				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
 		//JSPから更新したつぶやきを受け取る
 		String editedText = request.getParameter("editedText");
@@ -125,7 +128,7 @@ public class EditServlet extends HttpServlet {
 		message.setText(editedText);
 		message.setId(messageId);
 
-		new MessageService().editUpdate(message);
+		new MessageService().update(message);
 
 		response.sendRedirect("./");
 	}

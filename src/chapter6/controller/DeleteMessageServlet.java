@@ -37,9 +37,10 @@ public class DeleteMessageServlet extends HttpServlet {
 		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
 
-		//top.jspから
-		String deleteMessageId = request.getParameter("deleteMessageId");
+		//top.jspから削除するつぶやきのidを取得
+		int deleteMessageId = Integer.parseInt(request.getParameter("deleteMessageId"));
 
+		//取得したidを引数にしてMessageServiceのdeleteメソッドを呼び出す
 		new MessageService().delete(deleteMessageId);
 		response.sendRedirect("./");
 	}

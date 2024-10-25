@@ -75,7 +75,7 @@ public class MessageService {
 			connection = getConnection();
 
 			Integer id = null;
-			if(!StringUtils.isEmpty(userId)) {
+			if (!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
 
@@ -98,7 +98,8 @@ public class MessageService {
 		}
 	}
 
-	public void delete(String deleteMessageId) {
+	//DeleteMessageServletからidを引数として受け取る
+	public void delete(int deleteMessageId) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -108,6 +109,8 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
+
+			//コネクションとdeleteMessageIdを引数にして、MessageDaoを呼び出す
 			new MessageDao().delete(connection, deleteMessageId);
 			commit(connection);
 		} catch (RuntimeException e) {
@@ -125,7 +128,7 @@ public class MessageService {
 		}
 	}
 
-	public List<Message> editSelect(String editMessageId) {
+	public List<Message> select(int editMessageId) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -137,10 +140,10 @@ public class MessageService {
 		try {
 			connection = getConnection();
 
-			List<Message> editMessages = new MessageDao().editSelect(connection, editMessageId);
+			List<Message> message = new MessageDao().select(connection, editMessageId);
 			commit(connection);
 
-			return editMessages;
+			return message;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {
@@ -155,7 +158,8 @@ public class MessageService {
 			close(connection);
 		}
 	}
-	public void editUpdate(Message editedmessage) {
+
+	public void update(Message editedmessage) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -165,7 +169,7 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().editUpdate(connection, editedmessage);
+			new MessageDao().update(connection, editedmessage);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);

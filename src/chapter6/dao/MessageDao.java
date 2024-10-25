@@ -172,7 +172,7 @@ public class MessageDao {
 			sql.append("UPDATE  messages SET text = ?, ");
 			sql.append("created_date = CURRENT_TIMESTAMP, ");
 			sql.append("updated_date = CURRENT_TIMESTAMP ");
-			sql.append("WHERE messages.id = ?");
+			sql.append("WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 

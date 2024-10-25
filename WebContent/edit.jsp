@@ -12,48 +12,56 @@
 </head>
 <body>
 	<div class="main-contents">
-		<div class="header">
-			<a href="./">ホーム</a>
-			<a href="setting">設定</a>
-			<a href="logout">ログアウト</a>
-		</div>
-		<div class="profile">
-			<div class="name">
-				<h2>
-					<c:out value="${loginUser.name}" />
-				</h2>
+		<c:if test="${ not empty loginUser }">
+			<div class="header">
+				<a href="./">ホーム</a> <a href="setting">設定</a> <a href="logout">ログアウト</a>
 			</div>
-			<div class="account">
-				@
-				<c:out value="${loginUser.account}" />
-			</div>
-			<div class="description">
-				<c:out value="${loginUser.description}" />
-			</div>
-		</div>
-
-		<c:if test="${ not empty errorMessages }">
-			<div class="errorMessages">
-				<ul>
-					<c:forEach items="${errorMessages}" var="errorMessage">
-						<li><c:out value="${errorMessage}" />
-					</c:forEach>
-				</ul>
-			</div>
-			<c:remove var="errorMessages" scope="session" />
 		</c:if>
+		<c:if test="${ empty loginUser }">
+			<div class="header">
+				<a href="./">ホーム</a> <a href="login">ログイン</a> <a href="signup">登録する</a>
+			</div>
+		</c:if>
+			<div class="profile">
+				<div class="name">
+					<h2>
+						<c:out value="${loginUser.name}" />
+					</h2>
+				</div>
+				<div class="account">
+					@
+					<c:out value="${loginUser.account}" />
+				</div>
+				<div class="description">
+					<c:out value="${loginUser.description}" />
+				</div>
+			</div>
 
-		<div class="form-area">
-			<form action="edit" method="post">
-				<textarea name="editedText" cols="100" rows="5" class="tweet-box"><c:out value="${message.text}" /></textarea>
-				<br /> <input type="submit" value="更新">（140文字まで）
-				<br /> <input name="messageId" value="${message.id}" id="id" type="hidden" />
-			</form>
-			<a href="./">戻る</a>
+			<c:if test="${ not empty errorMessages }">
+				<div class="errorMessages">
+					<ul>
+						<c:forEach items="${errorMessages}" var="errorMessage">
+							<li><c:out value="${errorMessage}" />
+						</c:forEach>
+					</ul>
+				</div>
+				<c:remove var="errorMessages" scope="session" />
+			</c:if>
+
+			<div class="form-area">
+				<c:if test="${ not empty loginUser }">
+					<form action="edit" method="post">
+						<textarea name="editedText" cols="100" rows="5" class="tweet-box"><c:out value="${message.text}" /></textarea>
+						<br /> <input type="submit" value="更新">（140文字まで） <br /> <input
+							name="messageId" value="${message.id}" id="id" type="hidden" />
+					</form>
+				</c:if>
+				<a href="./">戻る</a>
+			</div>
+
+
+			<div class="copyright">Copyright(c)Nozomu Abe</div>
 		</div>
-
-		<div class="copyright">Copyright(c)Nozomu Abe</div>
-	</div>
 </body>
 </html>
 

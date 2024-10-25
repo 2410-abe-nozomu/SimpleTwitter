@@ -81,7 +81,7 @@ public class EditServlet extends HttpServlet {
 		}
 
 		//出力するデータと出力するJSPを指定して、フォワード
-		request.setAttribute("message", message);
+		request.setAttribute("message", message.get(0));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
 		dispatcher.forward(request, response);
 

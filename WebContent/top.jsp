@@ -77,25 +77,48 @@
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
-					<div class="delete">
+
+					<div class="deleteEdit">
 						<c:if test="${message.userId == loginUser.id }">
 							<form action="deleteMessage" method="post">
 								<input type="submit" value="削除">
 								<br /> <input name="deleteMessageId" value="${message.id}" id="id" type="hidden" />
 							</form>
 							<form action="edit" method="get">
-								<input type="submit" value="編集">									<br /> <input name="editMessageId" value="${message.id}" id="id" type="hidden" />
+								<input type="submit" value="編集">
+								<br /> <input name="editMessageId" value="${message.id}" id="id" type="hidden" />
 							</form>
 						</c:if>
 					</div>
-					<div class="edit">
+
+					<div class="comment">
+						<c:if test="${ isShowMessageForm }">
+							<form action="comment" method="post">
+								<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+							<br /> <input type="submit" value="返信">（140文字まで）
+							<br /> <input name="messageId" value="${message.id}" id="id" type="hidden" />
+							</form>
+						</c:if>
 					</div>
+
+					<%--返信の対象idとつぶやきのidが一致する場合に表示 --%>
+					<div class="comments">
+						<c:forEach items="${userComment}" var="userComment">
+							<c:if test="${message.id == userComment.messageId }">
+									<div class="text">
+										<c:out value="${userComment.account}" /> <c:out value="${userComment.name}" />
+										<pre><c:out value="${userComment.text}" /></pre>
+										<c:out value="${userComment.createdDate}" />
+									</div>
+							</c:if>
+						</c:forEach>
+					</div>
+
 				</div>
 			</c:forEach>
 		</div>
 
-
-		<div class="copyright">Copyright(c)Nozomu Abe</div>
+	<div class="copyright">Copyright(c)Nozomu Abe</div>
 	</div>
 </body>
 </html>

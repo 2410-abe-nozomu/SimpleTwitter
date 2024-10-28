@@ -52,8 +52,8 @@
 				<c:if test="${ not empty loginUser }">
 					<form action="edit" method="post">
 						<textarea name="editedText" cols="100" rows="5" class="tweet-box"><c:out value="${message.text}" /></textarea>
-						<br /> <input type="submit" value="更新">（140文字まで） <br /> <input
-							name="messageId" value="${message.id}" id="id" type="hidden" />
+						<br /> <input type="submit" value="更新">（140文字まで） <br />
+						<input name="messageId" value="${message.id}" id="id" type="hidden" />
 					</form>
 				</c:if>
 				<a href="./">戻る</a>

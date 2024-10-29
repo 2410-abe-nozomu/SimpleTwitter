@@ -61,14 +61,14 @@ public class TopServlet extends HttpServlet {
 		List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
 
 		//返信全件を取得する
-		List<UserComment> userComment = new CommentService().select();
+		List<UserComment> userComments = new CommentService().select();
 
 		//top.jspに出力
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("messages", messages);
 		request.setAttribute("isShowMessageForm", isShowMessageForm);
-		request.setAttribute("userComment", userComment);
+		request.setAttribute("userComments", userComments);
 		request.getRequestDispatcher("/top.jsp").forward(request, response);
 	}
 }

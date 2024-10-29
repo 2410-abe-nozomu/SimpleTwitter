@@ -68,12 +68,13 @@ public class CommentService {
 		Connection connection = null;
 
 		try {
+			final int LIMIT_NUM = 1000;
 			connection = getConnection();
 
-			List<UserComment> comment = new UserCommentDao().select(connection);
+			List<UserComment> userComments = new UserCommentDao().select(connection, LIMIT_NUM);
 			commit(connection);
 
-			return comment;
+			return userComments;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {

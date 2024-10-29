@@ -31,7 +31,7 @@ public class UserCommentDao {
 		application.init();
 	}
 
-	public List<UserComment> select(Connection connection) {
+	public List<UserComment> select(Connection connection, int num) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -51,14 +51,15 @@ public class UserCommentDao {
 			sql.append("FROM comments ");
 			sql.append("INNER JOIN users ");
 			sql.append("ON comments.user_id = users.id ");
-			sql.append("ORDER BY comments.created_date ASC ");
+			sql.append("ORDER BY comments.created_date ASC, ");
+			sql.append("created_date DESC limit " + num);
 
 			ps = connection.prepareStatement(sql.toString());
 
 			ResultSet rs = ps.executeQuery();
 
-			List<UserComment> comment = toUserComments(rs);
-			return comment;
+			List<UserComment> userComments = toUserComments(rs);
+			return userComments;
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, new Object() {
 			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);

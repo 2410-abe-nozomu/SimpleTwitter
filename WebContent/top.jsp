@@ -55,6 +55,7 @@
 					<input type="submit" value="絞り込み">
 			</form>
 		</div>
+		<br />
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
 				<form action="message" method="post">
@@ -105,7 +106,7 @@
 					</div>
 					<%--返信の対象idとつぶやきのidが一致する場合に表示 --%>
 					<div class="comments">
-						<c:forEach items="${userComment}" var="userComment">
+						<c:forEach items="${userComments}" var="userComment">
 							<c:if test="${message.id == userComment.messageId }">
 								<div class="text">
 									<c:out value="${userComment.account}" /> <c:out value="${userComment.name}" />

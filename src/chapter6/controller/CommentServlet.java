@@ -41,8 +41,10 @@ public class CommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
-				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();

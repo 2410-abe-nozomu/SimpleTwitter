@@ -14,37 +14,38 @@ import chapter6.logging.InitApplication;
 
 @WebServlet(urlPatterns = { "/logout" })
 public class LogoutServlet extends HttpServlet {
-    /**
-    * ロガーインスタンスの生成
-    */
-    Logger log = Logger.getLogger("twitter");
+	/**
+	* ロガーインスタンスの生成
+	*/
+	Logger log = Logger.getLogger("twitter");
 
-    /**
-    * デフォルトコンストラクタ
-    * アプリケーションの初期化を実施する。
-    */
-    public LogoutServlet(){
-        InitApplication application = InitApplication.getInstance();
-        application.init();
+	/**
+	* デフォルトコンストラクタ
+	* アプリケーションの初期化を実施する。
+	*/
+	public LogoutServlet() {
+		InitApplication application = InitApplication.getInstance();
+		application.init();
 
-    }
+	}
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-        		" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
-        //セッションオブジェクトを生成（セッションを操作するための準備）
-        HttpSession session = request.getSession();
+		//セッションオブジェクトを生成（セッションを操作するための準備）
+		HttpSession session = request.getSession();
 
-        // セッションの無効化
-        //トップページにリダイレクト
-        session.invalidate();
-        response.sendRedirect("./");
-    }
+		// セッションの無効化
+		//トップページにリダイレクト
+		session.invalidate();
+		response.sendRedirect("./");
+	}
 }
-

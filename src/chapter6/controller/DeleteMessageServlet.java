@@ -34,8 +34,10 @@ public class DeleteMessageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
-				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
 		//top.jspから削除するつぶやきのidを取得
 		int deleteMessageId = Integer.parseInt(request.getParameter("deleteMessageId"));

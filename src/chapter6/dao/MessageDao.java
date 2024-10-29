@@ -118,7 +118,7 @@ public class MessageDao {
 			List<Message> message = toMessages(rs);
 
 			//該当するidがなかった場合はbeansに格納せず、中断
-			if(message.isEmpty()) {
+			if (message.isEmpty()) {
 				return null;
 			}
 

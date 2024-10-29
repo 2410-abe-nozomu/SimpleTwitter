@@ -49,7 +49,12 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
-
+		<div class = "date">
+			<form action="./" method="get">
+				日付：<input name="startDate" id="id" type="date" value="${startDate}">～<input name="endDate" id="id" type="date" value="${endDate}"/>
+					<input type="submit" value="絞り込み">
+			</form>
+		</div>
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
 				<form action="message" method="post">
@@ -77,7 +82,6 @@
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
-
 					<div class="deleteEdit">
 						<c:if test="${message.userId == loginUser.id }">
 							<form action="deleteMessage" method="post">
@@ -90,7 +94,6 @@
 							</form>
 						</c:if>
 					</div>
-
 					<div class="comment">
 						<c:if test="${ isShowMessageForm }">
 							<form action="comment" method="post">
@@ -100,24 +103,22 @@
 							</form>
 						</c:if>
 					</div>
-
 					<%--返信の対象idとつぶやきのidが一致する場合に表示 --%>
 					<div class="comments">
 						<c:forEach items="${userComment}" var="userComment">
 							<c:if test="${message.id == userComment.messageId }">
-									<div class="text">
-										<c:out value="${userComment.account}" /> <c:out value="${userComment.name}" />
-										<pre><c:out value="${userComment.text}" /></pre>
-										<c:out value="${userComment.createdDate}" />
-									</div>
+								<div class="text">
+									<c:out value="${userComment.account}" /> <c:out value="${userComment.name}" />
+									<pre><c:out value="${userComment.text}" /></pre>
+									<fmt:formatDate value="${userComment.createdDate}"
+									pattern="yyyy/MM/dd HH:mm:ss" />
+								</div>
 							</c:if>
 						</c:forEach>
 					</div>
-
 				</div>
 			</c:forEach>
 		</div>
-
 	<div class="copyright">Copyright(c)Nozomu Abe</div>
 	</div>
 </body>

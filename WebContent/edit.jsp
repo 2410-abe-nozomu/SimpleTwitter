@@ -36,7 +36,6 @@
 					<c:out value="${loginUser.description}" />
 				</div>
 			</div>
-
 			<c:if test="${ not empty errorMessages }">
 				<div class="errorMessages">
 					<ul>
@@ -47,7 +46,6 @@
 				</div>
 				<c:remove var="errorMessages" scope="session" />
 			</c:if>
-
 			<div class="form-area">
 				<c:if test="${ not empty loginUser }">
 					<form action="edit" method="post">
@@ -58,10 +56,7 @@
 				</c:if>
 				<a href="./">戻る</a>
 			</div>
-
-
 			<div class="copyright">Copyright(c)Nozomu Abe</div>
 		</div>
 </body>
 </html>
-

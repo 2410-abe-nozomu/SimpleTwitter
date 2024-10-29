@@ -40,8 +40,10 @@ public class TopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		log.info(new Object() {}.getClass().getEnclosingClass().getName() +
-				" : " + new Object() {}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
 		//isShowMessageFormにfalseをセット
 		boolean isShowMessageForm = false;
@@ -52,14 +54,18 @@ public class TopServlet extends HttpServlet {
 			isShowMessageForm = true;
 		}
 
-		//JSPからuserIdを受け取り、MessageServiceに引数として渡す
+		//JSPからuserId、絞り込みの情報を受け取り、MessageServiceに引数として渡す
 		String userId = request.getParameter("user_id");
-		List<UserMessage> messages = new MessageService().select(userId);
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
 
 		//返信全件を取得する
 		List<UserComment> userComment = new CommentService().select();
 
 		//top.jspに出力
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
 		request.setAttribute("messages", messages);
 		request.setAttribute("isShowMessageForm", isShowMessageForm);
 		request.setAttribute("userComment", userComment);

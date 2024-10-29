@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-        //セッションオブジェクトを生成（セッションを操作するための準備）
+		//セッションオブジェクトを生成（セッションを操作するための準備）
 		HttpSession session = request.getSession();
 
 		//セッションにloginUserとして、取得したaccountOrEmailとpasswordを保持

@@ -7,6 +7,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="./vendor/jquery-3.7.1.js"></script>
+<script src="./vendor/jquery-3.7.1.min.js"></script>
+<script src="./js/top.js"></script>
 <title>簡易Twitter</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -83,11 +86,11 @@
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
-					<div class="deleteEdit">
+					<div class="deleteEdit" id="delete">
 						<c:if test="${message.userId == loginUser.id }">
 							<form action="deleteMessage" method="post">
 								<input type="submit" value="削除">
-								<br /> <input name="deleteMessageId" value="${message.id}" id="id" type="hidden" />
+								<br /> <input name="deleteMessageId" value="${message.id}" id="delete" type="hidden" />
 							</form>
 							<form action="edit" method="get">
 								<input type="submit" value="編集">
@@ -95,7 +98,7 @@
 							</form>
 						</c:if>
 					</div>
-					<div class="comment">
+					<div class="comment" id="comment">
 						<c:if test="${ isShowMessageForm }">
 							<form action="comment" method="post">
 								<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>

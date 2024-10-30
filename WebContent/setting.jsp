@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="./vendor/jquery-3.7.1.js"></script>
+<script src="./vendor/jquery-3.7.1.min.js"></script>
+<script src="./js/setting.js"></script>
 <title>${loginUser.account}の設定</title>
 <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -20,7 +23,7 @@
 				</ul>
 			</div>
 		</c:if>
-		<form action="setting" method="post">
+		<form action="setting" method="post" id="setting">
 			<br /> <input name="id" value="${user.id}" id="id" type="hidden" />
 			<label for="name">名前</label> <input name="name" value="${user.name}"id="name" />（名前はあなたの公開プロフィールに表示されます）
 			<br /> <label for="account">アカウント名</label>
